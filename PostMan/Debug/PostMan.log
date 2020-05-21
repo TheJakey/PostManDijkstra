@@ -1,0 +1,3 @@
+﻿  main.c
+C:\Projects\PostMan\PostMan\main.c(21,25): warning C4013:  'malloc' undefined; assuming extern returning int
+  PostMan.vcxproj -> C:\Projects\PostMan\Debug\PostMan.exe
