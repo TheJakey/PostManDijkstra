@@ -5,11 +5,16 @@ int** postman;
 int** citiesRelationsMatrix;
 int* currentTimes;
 
-int getEarliestDepartureTime(int postmanId, int cityFrom) {
+int** nextStepList;
+int lastValidStep;
+
+int getEarliestDepartureTime(int postmanId, int cityFrom, int currentCityTime) {
 	int numberOfDepartures = postman[postmanId][0];
 	int earliestDepartureTime = 999999999;
 	int departureTime;
 
+	// TODO: Test this
+	// get the nearest departure time
 	for (int departureTimeId = 1; departureTimeId <= numberOfDepartures; departureTimeId++) {
 		departureTime = postman[postmanId][departureTimeId];
 
@@ -20,12 +25,11 @@ int getEarliestDepartureTime(int postmanId, int cityFrom) {
 		if (departureTime < earliestDepartureTime) {
 			earliestDepartureTime = departureTime;
 		}
-
-		//// TODO: This will never ever work .... you are ignoring all the departures, that are the next day, also, what if ur cityTime is more then one day? also BUG@!!!!!!!!!!@!@!#@#@!!@!#!#@!@#@!#
-		//if (departuretime > currenttimes[cityfrom] && departuretime < earliestdeparturetime) {
-		//	earliestdeparturetime = departuretime;
-		//}
 	}
+
+	// calculate earliest departure time by adding already passed days
+	// (currentCityTime / 100) * 100 -> i need to get rid of ones and tens (e.g. from 542 i need only 500)
+	earliestDepartureTime += (currentCityTime / 100) * 100;
 
 	return earliestDepartureTime;
 }
@@ -37,6 +41,14 @@ int calculateNextHopTime(int currentCityTime, int earliestDepartureTime) {
 	currentCityTime + earliestDepartureTime;
 }
 
+void insertIntoList(int cityFrom, int cityTo, int earliestDepartureTime) {
+	lastValidStep++;
+
+	nextStepList[lastValidStep][0] = cityFrom;
+	nextStepList[lastValidStep][1] = cityTo;
+	nextStepList[lastValidStep][2] = earliestDepartureTime;
+}
+
 void makeItRain(int allCitiesCount) {
 	int visitedCount = 0;
 	int cityFrom = 1, cityTo;
@@ -45,6 +57,7 @@ void makeItRain(int allCitiesCount) {
 	while (visitedCount < allCitiesCount) {
 		currentCityTime = currentTimes[cityFrom];
 
+		// fill the tables for all routes from currentCity
 		for (cityTo = 2; cityTo < allCitiesCount; cityTo++) 
 		{
 			postmanId = citiesRelationsMatrix[cityFrom][cityTo];
@@ -53,10 +66,9 @@ void makeItRain(int allCitiesCount) {
 			if (postmanId == -1)
 				continue;
 
-			earliestDepartureTime = getEarliestDepartureTime(postmanId, cityFrom);
+			earliestDepartureTime = getEarliestDepartureTime(postmanId, cityFrom, currentCityTime);
 
-			timeAtTheNextHop = calculateNextHopTime();
-
+			insertIntoList(cityFrom, cityTo, earliestDepartureTime);
 		}
 	}
 }
@@ -64,6 +76,24 @@ void makeItRain(int allCitiesCount) {
 void loadDepartureTimes(int postmanId, int numberOfDepartureTimes) {
 	for (int i = 1; i < numberOfDepartureTimes + 1; i++) {
 		scanf("%d ", &postman[postmanId][i]);
+	}
+}
+
+void allocateNextStepList(int citiesCount) {
+	int row, column;
+
+	lastValidStep = -1;
+
+	nextStepList = (int**)malloc(citiesCount * sizeof(int*));
+	for (row = 0; row < citiesCount; row++) {
+		nextStepList = (int*)malloc(4 * sizeof(int));
+	}
+
+	// put -1 everywhere
+	for (int row = 0; row < citiesCount; row++) {
+		for (int column = 0; column < 4; column++) {
+			nextStepList[row][column] = -1;
+		}
 	}
 }
 
@@ -108,6 +138,8 @@ int main() {
 		postman[postmanId][0] = numberOfDepartureTimes;
 		loadDepartureTimes(postmanId, numberOfDepartureTimes);
 	}
+
+	allocateNextStepList(citiesCount);
 
 	makeItRain(citiesCount);
 	
