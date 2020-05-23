@@ -131,13 +131,13 @@ void allocateNextStepList(int postmanCount) {
 
 	lastValidStep = -1;
 
-	nextStepList = (int**)malloc(8000 * sizeof(int*));
-	for (row = 0; row < 8000; row++) {
+	nextStepList = (int**)malloc(postmanCount * sizeof(int*));
+	for (row = 0; row < postmanCount; row++) {
 		nextStepList[row] = (int*)malloc(4 * sizeof(int));
 	}
 
 	// put -1 everywhere
-	for (int row = 0; row < 8000; row++) {
+	for (int row = 0; row < postmanCount; row++) {
 		for (int column = 0; column < 3; column++) {
 			nextStepList[row][column] = -1;
 		}
