@@ -131,13 +131,13 @@ void allocateNextStepList(int postmanCount) {
 
 	lastValidStep = -1;
 
-	nextStepList = (int**)malloc(8000 * sizeof(int*));
-	for (row = 0; row < 8000; row++) {
+	nextStepList = (int**)malloc(10000 * sizeof(int*));
+	for (row = 0; row < 10000; row++) {
 		nextStepList[row] = (int*)malloc(4 * sizeof(int));
 	}
 
 	// put -1 everywhere
-	for (int row = 0; row < 8000; row++) {
+	for (int row = 0; row < 10000; row++) {
 		for (int column = 0; column < 3; column++) {
 			nextStepList[row][column] = -1;
 		}
@@ -227,6 +227,13 @@ int main() {
 		else {
 			printf("-1\n");
 		}
+
+		// free the memmory
+		int row;
+		for (row = 0; row < 10000; row++) {
+			free(nextStepList[row]);
+		}
+		free(nextStepList);
 	}
 	// printf("done");
 
