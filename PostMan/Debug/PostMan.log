@@ -1,11 +1,1 @@
-﻿  main.c
-C:\Projects\PostMan\PostMan\main.c(45,18): warning C4552: '+': result of expression not used
-C:\Projects\PostMan\PostMan\main.c(42,6): warning C4101: 'nextHopTime': unreferenced local variable
-C:\Projects\PostMan\PostMan\main.c(64,22): warning C4098: 'insertIntoList': 'void' function returning a value
-C:\Projects\PostMan\PostMan\main.c(97,17): warning C4101: 'departureTime': unreferenced local variable
-C:\Projects\PostMan\PostMan\main.c(97,72): warning C4101: 'timeAtTheNextHop': unreferenced local variable
-C:\Projects\PostMan\PostMan\main.c(134,30): warning C4013: 'malloc' undefined; assuming extern returning int
-C:\Projects\PostMan\PostMan\main.c(130,11): warning C4101: 'column': unreferenced local variable
-C:\Projects\PostMan\PostMan\main.c(234,8): warning C4013: 'free' undefined; assuming extern returning int
-C:\Projects\PostMan\PostMan\main.c(46): warning C4716: 'calculateNextHopTime': must return a value
-  PostMan.vcxproj -> C:\Projects\PostMan\Debug\PostMan.exe
+﻿  PostMan.vcxproj -> C:\Projects\PostMan\Debug\PostMan.exe
