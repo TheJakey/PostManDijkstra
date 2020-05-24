@@ -1,9 +1,14 @@
 # PostManDijkstra
 
-Implementation of Dijkstra algorithm for (I believe) custom problem. 
+Implementation of Dijkstra algorithm for custom problem. 
 
 Idea is to send a letter to each city (node), while postman (edge) has time-schedule of when he lefts the town. Transfer cost is 0 (postman goes from city A to B and back in given times). Starting city (node) is always 1. 
 Goal is to find quickest way to contact each node.
+
+Developed in:
+Microsoft Visual Studio Community 2019
+Version 16.6.0
+
 
 ## Input 1
 1         - number of maps
